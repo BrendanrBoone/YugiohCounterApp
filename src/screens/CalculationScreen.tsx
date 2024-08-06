@@ -1,5 +1,5 @@
 /**
- * HomeScreen.tsx
+ * CalculationScreen.tsx
  * 
  * Home Screen component.
  */
@@ -12,7 +12,7 @@ import {
 import { DemoButton } from "../components/ui/DemoButton";
 import { IHomeScreenProps } from "../routes";
 
-export default function HomeScreen(props: IHomeScreenProps) {
+export default function CalculationScreen(props: IHomeScreenProps) {
 
 
     return (

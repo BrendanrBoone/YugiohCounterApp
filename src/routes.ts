@@ -4,8 +4,8 @@
  * Defines the routes for the app
  * location of definitions for screen navigation and names
  */
-import {StackScreenProps} from "@react-navigation/stack";
-import {IPlayer} from "./components/state/"
+import { StackScreenProps } from "@react-navigation/stack";
+import { IPlayer } from "./components/state/"
 
 /**
  * Defines what parameters gets sent to a screen route

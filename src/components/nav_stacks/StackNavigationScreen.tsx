@@ -2,11 +2,11 @@
  * StackNavigationScreen.tsx
  * Navigational stack of screens for app
  */
-import {createStackNavigator} from "@react-navigation/stack";
-import route_names, {IStackParamList} from "../../routes";
+import { createStackNavigator } from "@react-navigation/stack";
+import route_names, { IStackParamList } from "../../routes";
 import HomeScreen from "../../screens/HomeScreen";
-import {BattleScreen} from "../../screens/BattleScreen";
-import {CalculationScreen} from "../../screens/CalculationScreen";
+import BattleScreen from "../../screens/BattleScreen";
+import CalculationScreen from "../../screens/CalculationScreen";
 
 const HomeStack = createStackNavigator<IStackParamList>();
 
