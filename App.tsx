@@ -1,8 +1,10 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * App.tsx
+ * Entry point into the application as pointed out by Software Engineer Davidさん
  *
- * @format
+ * Brendan Boone's Yugioh App starts here :)
+ * I'm just gonna mesh together a lot of my ideas from the Awesome Receipt App
+ * and any useful code from the sample code in the template.
  */
 
 import React from 'react';
@@ -16,7 +18,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import {
   Colors,
   DebugInstructions,
@@ -24,6 +25,13 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer
+} from '@react-navigation/native';
+import StackNavigationScreen from './src/components/nav_stacks/StackNavigationScreen';
+import AppState from './src/components/state/AppState';
 
 type SectionProps = PropsWithChildren<{
   title: string;
