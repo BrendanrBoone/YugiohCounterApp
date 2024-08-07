@@ -17,7 +17,7 @@ export default function HomeScreen(props: IHomeScreenProps) {
 
     return (
         <View style={styles.container}>
-            <View style={{height: 60}}>
+            <View style={{ height: 60 }}>
                 <DemoButton key="Process Image" onPress={() => console.log("HelloWorld!")}>
                     {"DUEL!"}
                 </DemoButton>
