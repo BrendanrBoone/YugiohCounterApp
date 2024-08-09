@@ -43,9 +43,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AppState>
-        <StackNavigationScreen />
-      </AppState>
+      <StackNavigationScreen />
     </NavigationContainer>
   );
 }

@@ -7,22 +7,33 @@ import { useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    SafeAreaView
 } from "react-native";
 import { DemoButton } from "../components/ui/DemoButton";
-import { IBattleScreenProps } from "../routes";
+import route_names, { IBattleScreenProps } from "../routes";
+import functionLibrary from "../components/state/ScrnDepFuncLib";
+import defined_colors from "../components/ui/colors";
 
 export default function BattleScreen(props: IBattleScreenProps) {
 
+    const battleButtonFunction = (): void => {
+        functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
+        props.navigation.navigate(route_names.HOME_SCREEN);
+    }
 
     return (
-        <View style={styles.container}>
-            <View style={{height: 60}}>
-                <DemoButton key="Process Image" onPress={() => console.log("HelloWorld!")}>
-                    {"DUEL!"}
+        <SafeAreaView style={styles.container}>
+            <View style={{ height: 250, width: 185 }}>
+                <DemoButton 
+                key="Battle button" 
+                onPress={() => battleButtonFunction()}
+                color={defined_colors.duel_blue}
+                color_pressed={defined_colors.black}>
+                    {"DUEL!!"}
                 </DemoButton>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
