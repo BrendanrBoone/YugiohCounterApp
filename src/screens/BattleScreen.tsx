@@ -10,9 +10,9 @@ import {
     View
 } from "react-native";
 import { DemoButton } from "../components/ui/DemoButton";
-import { IHomeScreenProps } from "../routes";
+import { IBattleScreenProps } from "../routes";
 
-export default function BattleScreen(props: IHomeScreenProps) {
+export default function BattleScreen(props: IBattleScreenProps) {
 
 
     return (

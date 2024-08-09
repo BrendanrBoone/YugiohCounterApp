@@ -10,9 +10,9 @@ import {
     View
 } from "react-native";
 import { DemoButton } from "../components/ui/DemoButton";
-import { IHomeScreenProps } from "../routes";
+import { ICalculationScreenProps } from "../routes";
 
-export default function CalculationScreen(props: IHomeScreenProps) {
+export default function CalculationScreen(props: ICalculationScreenProps) {
 
 
     return (

@@ -5,7 +5,7 @@
  * location of definitions for screen navigation and names
  */
 import { StackScreenProps } from "@react-navigation/stack";
-import { IPlayer } from "./components/state/"
+import { IPlayer } from "./components/state/IBattleDocument";
 
 /**
  * Defines what parameters gets sent to a screen route
@@ -29,13 +29,13 @@ export interface IRoutes {
     HOME_SCREEN: "Home",
     BATTLE_SCREEN: "Battle",
     CALCULATION_SCREEN: "Calculation"
-}
+};
 
 const route_names: IRoutes = {
     HOME_SCREEN: "Home",
     BATTLE_SCREEN: "Battle",
     CALCULATION_SCREEN: "Calculation"
-}
+};
 
 // Stack Screens
 export type IHomeScreenProps = StackScreenProps<IStackParamList, typeof route_names.HOME_SCREEN>;
