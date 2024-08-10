@@ -24,10 +24,10 @@ export default function BattleScreen(props: IBattleScreenProps) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ height: 250, width: 185 }}>
+            <View style={styles.duelView}>
                 <DemoButton 
                 key="Battle button" 
-                onPress={() => battleButtonFunction()}
+                onPress={battleButtonFunction}
                 color={defined_colors.duel_blue}
                 color_pressed={defined_colors.black}>
                     {"DUEL!!"}
@@ -46,5 +46,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold'
+    },
+    duelView: {
+        height: 250,
+        width: 185,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        margin: '50%'
     }
 });

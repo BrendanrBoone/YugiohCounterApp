@@ -1,10 +1,9 @@
 /**
  * ArrowSelector.tsx
  * 
- * Thing to scroll selections. Needs a <view> wrapper to determine size,
- * same with DemoButton
+ * 
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     StyleSheet,
     Text,
@@ -27,16 +26,40 @@ import {
   */
 export function ArrowSelector({itemLst}: ArrowSelectorProps) {
 
-    
+    const [index, setIndex] = useState(0);
+    const [item, setItem] = useState(itemLst[0]);
+
+    const cycleLeft = (): void => {
+        let i = index;
+        if (i == 0) {
+            i = itemLst.length - 1;
+        } else {
+            i -= 1;
+        }
+        setIndex(i);
+        setItem(itemLst[i]);
+    }
+
+    const cycleRight = (): void => {
+        let i = index;
+        if (i == itemLst.length - 1) {
+            i = 0;
+        } else {
+            i += 1;
+        }
+        setIndex(i);
+        setItem(itemLst[i]);
+    }
 
     return (
         <View style={styles.container}>
             <Pressable style={[styles.triangle, styles.arrowLeft]}
-            onPress={() => console.log("this works")} />
+            onPress={cycleLeft} />
             <Text style={styles.text}>
-                Something here!
+                {item}
             </Text>
-            <Pressable style={[styles.triangle, styles.arrowRight]} />
+            <Pressable style={[styles.triangle, styles.arrowRight]}
+            onPress={cycleRight} />
         </View>
     )
 }
@@ -51,11 +74,11 @@ interface Styles {
 
 const styles = StyleSheet.create<Styles>({
     container: {
-        maxWidth: 200,
-        maxHeight: 100,
+        height: 60,
+        width: 200,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         borderWidth: 1,
         borderColor: defined_colors.sienna
       },
@@ -66,28 +89,28 @@ const styles = StyleSheet.create<Styles>({
         borderStyle: 'solid'
     },
     arrowLeft: {
-        borderTopWidth: 30,
+        borderTopWidth: 20,
         borderRightWidth: 30,
-        borderBottomWidth: 30,
+        borderBottomWidth: 20,
         borderLeftWidth: 0,
         borderTopColor: 'transparent',
-        borderRightColor: "tomato",
+        borderRightColor: "blue",
         borderBottomColor: 'transparent',
         borderLeftColor: 'transparent'
     },
     arrowRight: {
-        borderTopWidth: 30,
+        borderTopWidth: 20,
         borderRightWidth: 0,
-        borderBottomWidth: 30,
+        borderBottomWidth: 20,
         borderLeftWidth: 30,
         borderTopColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: 'transparent',
-        borderLeftColor: "tomato"
+        borderLeftColor: "red"
     },
     text: {
         textAlign: 'center',
         color: defined_colors.bright_orange,
-        fontSize: 15
+        fontSize: 25
     }
 });

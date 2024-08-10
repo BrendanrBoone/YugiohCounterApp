@@ -13,9 +13,11 @@ import { DemoButton } from "../components/ui/DemoButton";
 import route_names, { IHomeScreenProps } from "../routes";
 import defined_colors from "../components/ui/colors";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
-import { ArrowSelector } from "../components/ui/arrowSelector";
+import { ArrowSelector } from "../components/ui/ArrowSelector";
 
 export default function HomeScreen(props: IHomeScreenProps) {
+
+    const defined_starting_LP = [4000, 8000];
 
     const duelButtonFunction = (): void => {
         functionLibrary.printLogScreen(route_names.HOME_SCREEN);
@@ -24,13 +26,14 @@ export default function HomeScreen(props: IHomeScreenProps) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{height: 100, width: 185, alignContent: 'flex-start'}}>
-                <ArrowSelector itemLst={[1000, 2000]}/>
+            <View style={{alignSelf: 'center', marginTop: 0}}>
+                <ArrowSelector itemLst={defined_starting_LP}/>
             </View>
-            <View style={{ height: 250, width: 185, justifyContent: 'center' }}>
+            
+            <View style={styles.duelView}>
                 <DemoButton 
                 key="Start Battle" 
-                onPress={() => {duelButtonFunction()}}
+                onPress={duelButtonFunction}
                 color={defined_colors.dark_grey}
                 color_pressed={defined_colors.black}>
                     {"DUEL!"}
@@ -43,10 +46,20 @@ export default function HomeScreen(props: IHomeScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderWidth: 0,
+        borderColor: 'red'
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold'
+    },
+    duelView: {
+        height: 250,
+        width: 185,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginBottom: '63%'
     }
 });
