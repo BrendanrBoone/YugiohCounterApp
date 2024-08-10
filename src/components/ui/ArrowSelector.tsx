@@ -16,6 +16,7 @@ import {
 
  type ArrowSelectorProps<P = unknown> = P & {
     itemLst: number[];
+    currentItem: (currentLP: number) => void;
  }
 
  /**
@@ -24,7 +25,7 @@ import {
   * @param itemLst list of numbers 
   * @returns React.JSX.Element of arrow selector 
   */
-export function ArrowSelector({itemLst}: ArrowSelectorProps) {
+export function ArrowSelector({itemLst, currentItem}: ArrowSelectorProps) {
 
     const [index, setIndex] = useState(0);
     const [item, setItem] = useState(itemLst[0]);
@@ -38,6 +39,7 @@ export function ArrowSelector({itemLst}: ArrowSelectorProps) {
         }
         setIndex(i);
         setItem(itemLst[i]);
+        currentItem(itemLst[i]);
     }
 
     const cycleRight = (): void => {
@@ -49,16 +51,21 @@ export function ArrowSelector({itemLst}: ArrowSelectorProps) {
         }
         setIndex(i);
         setItem(itemLst[i]);
+        currentItem(itemLst[i]);
     }
 
     return (
         <View style={styles.container}>
-            <Pressable style={[styles.triangle, styles.arrowLeft]}
+            <Pressable style={({pressed}) => [
+                styles.triangle, styles.arrowLeft, 
+                {borderRightColor: pressed ? defined_colors.dark_blue : defined_colors.blue}]}
             onPress={cycleLeft} />
             <Text style={styles.text}>
                 {item}
             </Text>
-            <Pressable style={[styles.triangle, styles.arrowRight]}
+            <Pressable style={({pressed}) => [
+                styles.triangle, styles.arrowRight, 
+                {borderLeftColor: pressed ? defined_colors.dark_red : defined_colors.red}]}
             onPress={cycleRight} />
         </View>
     )
@@ -94,7 +101,6 @@ const styles = StyleSheet.create<Styles>({
         borderBottomWidth: 20,
         borderLeftWidth: 0,
         borderTopColor: 'transparent',
-        borderRightColor: "blue",
         borderBottomColor: 'transparent',
         borderLeftColor: 'transparent'
     },

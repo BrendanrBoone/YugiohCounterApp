@@ -25,6 +25,11 @@ export default function BattleScreen(props: IBattleScreenProps) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.duelView}>
+                <Text>
+                    {props.route.params.starting_LP}
+                </Text>
+            </View>
+            <View style={styles.duelView}>
                 <DemoButton 
                 key="Battle button" 
                 onPress={battleButtonFunction}
@@ -40,8 +45,10 @@ export default function BattleScreen(props: IBattleScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderWidth: 0,
+        borderColor: 'red'
     },
     title: {
         fontSize: 24,
@@ -52,6 +59,6 @@ const styles = StyleSheet.create({
         width: 185,
         justifyContent: 'center',
         alignSelf: 'center',
-        margin: '50%'
+        marginBottom: '63%'
     }
 });

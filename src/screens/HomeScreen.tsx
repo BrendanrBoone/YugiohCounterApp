@@ -18,16 +18,21 @@ import { ArrowSelector } from "../components/ui/ArrowSelector";
 export default function HomeScreen(props: IHomeScreenProps) {
 
     const defined_starting_LP = [4000, 8000];
+    const [currentLP, setCurrentLP] = useState(defined_starting_LP[0]);
+
+    const handleCurrentLP = (LP: number) => {
+        setCurrentLP(LP);
+    };
 
     const duelButtonFunction = (): void => {
         functionLibrary.printLogScreen(route_names.HOME_SCREEN);
-        props.navigation.navigate(route_names.BATTLE_SCREEN, {starting_LP: 4000});
+        props.navigation.navigate(route_names.BATTLE_SCREEN, {starting_LP: currentLP});
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={{alignSelf: 'center', marginTop: 0}}>
-                <ArrowSelector itemLst={defined_starting_LP}/>
+                <ArrowSelector itemLst={defined_starting_LP} currentItem={handleCurrentLP} />
             </View>
             
             <View style={styles.duelView}>

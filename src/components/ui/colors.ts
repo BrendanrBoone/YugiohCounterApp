@@ -3,7 +3,11 @@ const defined_colors = {
     bright_orange: "#eb6405",
     sienna: "sienna",
     black: "black",
-    duel_blue: "#1b46f2"
+    duel_blue: "#1b46f2",
+    blue: "blue",
+    dark_blue: "darkblue",
+    red: "red",
+    dark_red: "#630903"
 }
 
 export default defined_colors;
