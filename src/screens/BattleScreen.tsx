@@ -10,12 +10,17 @@ import {
     View,
     SafeAreaView
 } from "react-native";
-import { DemoButton } from "../components/ui/DemoButton";
 import route_names, { IBattleScreenProps } from "../routes";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
 import defined_colors from "../components/ui/colors";
+import { PlayerButton } from "../components/ui/PlayerButton";
 
 export default function BattleScreen(props: IBattleScreenProps) {
+
+    const startingPlayerLP: number = props.route.params.starting_LP;
+
+    const [p1LP, setP1LP] = useState(startingPlayerLP);
+    const [p2LP, setP2LP] = useState(startingPlayerLP);
 
     const battleButtonFunction = (): void => {
         functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
@@ -24,19 +29,24 @@ export default function BattleScreen(props: IBattleScreenProps) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.duelView}>
-                <Text>
-                    {props.route.params.starting_LP}
-                </Text>
+            <View style={styles.p2Half}>
+                <PlayerButton 
+                key="p2"
+                onPress={() => console.log("p2 works")}
+                color={defined_colors.blue}
+                color_pressed={defined_colors.dark_blue}
+                flipped={true}>
+                    {p2LP}
+                </PlayerButton>
             </View>
-            <View style={styles.duelView}>
-                <DemoButton 
-                key="Battle button" 
-                onPress={battleButtonFunction}
-                color={defined_colors.duel_blue}
-                color_pressed={defined_colors.black}>
-                    {"DUEL!!"}
-                </DemoButton>
+            <View style={styles.p1Half}>
+                <PlayerButton 
+                key="p1"
+                onPress={() => console.log("p1 works")}
+                color={defined_colors.red}
+                color_pressed={defined_colors.dark_red}>
+                    {p1LP}
+                </PlayerButton>
             </View>
         </SafeAreaView>
     );
@@ -44,11 +54,17 @@ export default function BattleScreen(props: IBattleScreenProps) {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+    p1Half: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        borderWidth: 0,
-        borderColor: 'red'
+        justifyContent: 'center',
+    },
+    p2Half: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     title: {
         fontSize: 24,
