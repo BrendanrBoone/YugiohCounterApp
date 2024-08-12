@@ -14,17 +14,39 @@ import route_names, { IBattleScreenProps } from "../routes";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
 import defined_colors from "../components/ui/colors";
 import { PlayerButton } from "../components/ui/PlayerButton";
+import useAppContext from "../components/hooks/useAppContext";
+import { IPlayer } from "../components/state/IBattleDocument";
 
 export default function BattleScreen(props: IBattleScreenProps) {
 
-    const startingPlayerLP: number = props.route.params.starting_LP;
+    const ctx = useAppContext();
 
-    const [p1LP, setP1LP] = useState(startingPlayerLP);
-    const [p2LP, setP2LP] = useState(startingPlayerLP);
-
-    const battleButtonFunction = (): void => {
+    const handleGameEnd = (): void => {
         functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
         props.navigation.navigate(route_names.HOME_SCREEN);
+    };
+
+    const updatePlayerLP = (player: IPlayer, newLP: number) => {
+        const updatePlayer: IPlayer = {
+            ...player,
+            countLP: newLP
+        };
+        (player == ctx.player1) ? ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
+    };
+
+    const goToCalculation = (player: IPlayer, flipped: boolean) => {
+        props.navigation.navigate(route_names.CALCULATION_SCREEN, {
+            player: player,
+            flipped: flipped
+        });
+    };
+
+    const handleP1 = (): void => {
+        goToCalculation(ctx.player1, false);
+    }
+
+    const handleP2 = (): void => {
+        goToCalculation(ctx.player2, true);
     }
 
     return (
@@ -32,20 +54,20 @@ export default function BattleScreen(props: IBattleScreenProps) {
             <View style={styles.p2Half}>
                 <PlayerButton 
                 key="p2"
-                onPress={() => console.log("p2 works")}
+                onPress={handleP2}
                 color={defined_colors.blue}
                 color_pressed={defined_colors.dark_blue}
                 flipped={true}>
-                    {p2LP}
+                    {ctx.player2.countLP}
                 </PlayerButton>
             </View>
             <View style={styles.p1Half}>
                 <PlayerButton 
                 key="p1"
-                onPress={() => console.log("p1 works")}
+                onPress={handleP1}
                 color={defined_colors.red}
                 color_pressed={defined_colors.dark_red}>
-                    {p1LP}
+                    {ctx.player1.countLP}
                 </PlayerButton>
             </View>
         </SafeAreaView>

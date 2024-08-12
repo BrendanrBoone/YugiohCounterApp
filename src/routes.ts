@@ -20,8 +20,8 @@ import { IPlayer } from "./components/state/IBattleDocument";
  */
 export type IStackParamList = {
     [route_names.HOME_SCREEN]: undefined,
-    [route_names.BATTLE_SCREEN]: {starting_LP: number},
-    [route_names.CALCULATION_SCREEN]: {player: IPlayer}
+    [route_names.BATTLE_SCREEN]: undefined,
+    [route_names.CALCULATION_SCREEN]: {player: IPlayer, flipped: boolean}
 };
 
 //routes

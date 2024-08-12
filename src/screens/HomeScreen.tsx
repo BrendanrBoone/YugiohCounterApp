@@ -14,9 +14,12 @@ import route_names, { IHomeScreenProps } from "../routes";
 import defined_colors from "../components/ui/colors";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
 import { ArrowSelector } from "../components/ui/ArrowSelector";
+import { IPlayer } from "../components/state/IBattleDocument";
+import useAppContext from "../components/hooks/useAppContext";
 
 export default function HomeScreen(props: IHomeScreenProps) {
 
+    const ctx = useAppContext();
     const defined_starting_LP = [4000, 8000];
     const [currentLP, setCurrentLP] = useState(defined_starting_LP[0]);
 
@@ -24,9 +27,21 @@ export default function HomeScreen(props: IHomeScreenProps) {
         setCurrentLP(LP);
     };
 
+    const updatePlayerLP = (player: IPlayer, newLP: number) => {
+        const playerName: string = (player == ctx.player1) ? "Player1" : "Player2";
+        const updatePlayer: IPlayer = {
+            ...player,
+            name: playerName,
+            countLP: newLP
+        };
+        (player == ctx.player1) ? ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
+    };
+
     const duelButtonFunction = (): void => {
         functionLibrary.printLogScreen(route_names.HOME_SCREEN);
-        props.navigation.navigate(route_names.BATTLE_SCREEN, {starting_LP: currentLP});
+        updatePlayerLP(ctx.player1, currentLP);
+        updatePlayerLP(ctx.player2, currentLP);
+        props.navigation.navigate(route_names.BATTLE_SCREEN);
     }
 
     return (

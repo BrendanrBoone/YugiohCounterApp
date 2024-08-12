@@ -16,9 +16,10 @@ type DemoButtonProps<P = unknown> = P & {
     children?: React.ReactNode | undefined;
     color?: string | undefined;
     color_pressed?: string | undefined;
+    flipped?: boolean | undefined
 }
 
-export function DemoButton({onPress, children, color, color_pressed}: DemoButtonProps<Props>) {
+export function DemoButton({onPress, children, color, color_pressed, flipped}: DemoButtonProps<Props>) {
     return (
         <Pressable
         onPress={onPress}
@@ -26,7 +27,7 @@ export function DemoButton({onPress, children, color, color_pressed}: DemoButton
             {backgroundColor: pressed ? color_pressed : color},
             styles.container
         ]}>
-            <Text style={styles.text}>
+            <Text style={flipped ? styles.flippedText : styles.text}>
                 {children}
             </Text>
         </Pressable>
@@ -36,6 +37,7 @@ export function DemoButton({onPress, children, color, color_pressed}: DemoButton
 interface Styles {
     container: ViewStyle;
     text: TextStyle;
+    flippedText: TextStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -56,5 +58,11 @@ const styles = StyleSheet.create<Styles>({
         textAlign: 'center',
         color: defined_colors.bright_orange,
         fontSize: 30
+    },
+    flippedText: {
+        textAlign: 'center',
+        color: defined_colors.bright_orange,
+        fontSize: 30,
+        transform: [{scaleX: -1}]
     }
 });
