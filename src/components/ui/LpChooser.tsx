@@ -17,6 +17,8 @@ import Feather from 'react-native-vector-icons/Feather'
 type LpChooserProps<P = unknown> = P & {
     dialPadContent: (string | number)[];
     pinLength: number;
+    lpChange: number;
+    setLpChange: React.Dispatch<React.SetStateAction<number>>;
     dialPadSize: number;
     dialPadTextSize: number;
 }
@@ -27,31 +29,48 @@ type LpChooserProps<P = unknown> = P & {
  * @returns React.JSX.Element of arrow selector 
  */
 export function LpChooser(
-    { dialPadContent, pinLength, dialPadSize, dialPadTextSize }: LpChooserProps) {
+    { dialPadContent, pinLength, lpChange, setLpChange, dialPadSize, dialPadTextSize }: LpChooserProps) {
+
+    const typeLP = (item: (string | number)): void => {
+        let lp_string = lpChange.toString();
+        const key = (typeof item === 'string') ? item : item.toString();
+        if (lp_string.length < pinLength && key != "X") {
+            lp_string = lp_string + key;
+        } else if (lp_string.length > 0 && key == "X") {
+            lp_string = lp_string.slice(0, -1);
+        }
+        if (lp_string == "") {
+            lp_string = "0";
+        }
+        setLpChange(parseInt(lp_string));
+    }
+
     return (
         <FlatList
-        data={dialPadContent}
-        numColumns={3}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => {
-            return (
-                <TouchableOpacity disabled={item === ""}>
-                    <View style={[{
-                    backgroundColor: item === "" ? "transparent" : "#fff",
-                    width: dialPadSize,
-                    height: dialPadSize,
-                    }, styles.dialPadContainer]}>
-                        {item === "X" ? (
-                            <Feather name="delete" size={24} color="#3F1D38" />
-                        ) : (
-                            <Text style={[{ fontSize: dialPadTextSize }, styles.dialPadText]}>
-                                {item}
-                            </Text>
-                        )}
-                    </View>
-                </TouchableOpacity>
-            );
-        }}
+            data={dialPadContent}
+            numColumns={3}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => {
+                return (
+                    <TouchableOpacity disabled={item === ""} onPress={() => typeLP(item)}>
+                        <View style={[{
+                            backgroundColor: item === "" ? "transparent" : defined_colors.dark_grey,
+                            borderColor: item === "" ? "transparent" : defined_colors.sienna,
+                            borderWidth: item === "" ? 0 : 1,
+                            width: dialPadSize,
+                            height: dialPadSize,
+                        }, styles.dialPadContainer]}>
+                            {item === "X" ? (
+                                <Feather name="delete" size={24} color={defined_colors.white} />
+                            ) : (
+                                <Text style={[{ fontSize: dialPadTextSize }, styles.dialPadText]}>
+                                    {item}
+                                </Text>
+                            )}
+                        </View>
+                    </TouchableOpacity>
+                );
+            }}
         />
     );
 }
@@ -61,10 +80,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
         margin: 10,
-        borderRadius: 50,
-        borderColor: "transparent",
+        borderRadius: 50
     },
     dialPadText: {
-        color: "#3F1D38",
+        color: defined_colors.white,
     },
 });
