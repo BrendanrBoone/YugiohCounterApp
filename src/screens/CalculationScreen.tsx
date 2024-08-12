@@ -3,18 +3,31 @@
  * 
  * Home Screen component.
  */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    SafeAreaView,
+    Dimensions
 } from "react-native";
-import { DemoButton } from "../components/ui/DemoButton";
 import route_names, { ICalculationScreenProps } from "../routes";
 import useAppContext from "../components/hooks/useAppContext";
 import defined_colors from "../components/ui/colors";
 import { IPlayer } from "../components/state/IBattleDocument";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
+import Ionicons from "react-native-ionicons"
+import { LpChooser } from "../components/ui/LpChooser";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+const { width, height } = Dimensions.get("window");
+
+const dialPadContent = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "X"];
+
+const dialPadSize = width * 0.2;
+const dialPadTextSize = dialPadSize * 0.4;
+
+const pinLength = 6;
 
 export default function CalculationScreen(props: ICalculationScreenProps) {
 
@@ -39,36 +52,53 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
     };
 
     return (
-        <View style={flipped ? styles.flippedContainer : styles.container}>
-            <DemoButton
-            key="Process Image"
-            onPress={handleCalculate}
-            color={defined_colors.white}
-            color_pressed={defined_colors.dark_grey}
-            flipped={flipped}>
-                {"DUEL!"}
-            </DemoButton>
-        </View>
+        <SafeAreaView style={flipped ? styles.flippedContainer : styles.container}>
+            <View style={styles.text}>
+                <TouchableOpacity
+                onPress={() => props.navigation.goBack()}
+                style={{ position: "absolute", top: -5, left: 10}}>
+                    <Ionicons name="chevron-back-outline" size={45} color="#5E454B" />
+                </TouchableOpacity>
+                <Text style={styles.pinText}>SOMETHING HERE</Text>
+                <LpChooser
+                dialPadContent = {dialPadContent}
+                pinLength={pinLength}
+                dialPadSize={dialPadSize}
+                dialPadTextSize={dialPadTextSize}/>
+            </View>
+            <View style={{flexDirection: "row", flex: 1}}>
+                <TouchableOpacity style={{backgroundColor: defined_colors.red}}>
+                    <Ionicons name="remove-circle-outline" size={45} color={defined_colors.black} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: defined_colors.blue}}>
+                    <Ionicons name="add-circle-outline" size={45} color={defined_colors.black} />
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: "#FAF0E6",
+        justifyContent: "center"
     },
     text: {
-        flex: 1
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 40,
+        position: "relative"
+    },
+    pinText: {
+        fontSize: 30,
+        fontWeight: "medium",
+        color: "#5E454B",
     },
     flippedContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        transform: [{scaleY: -1}]
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold'
+        backgroundColor: "#FAF0E6",
+        transform: [{rotate: '180deg'}]
     }
 });

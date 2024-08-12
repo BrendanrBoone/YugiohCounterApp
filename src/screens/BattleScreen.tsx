@@ -35,6 +35,7 @@ export default function BattleScreen(props: IBattleScreenProps) {
     };
 
     const goToCalculation = (player: IPlayer, flipped: boolean) => {
+        functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
         props.navigation.navigate(route_names.CALCULATION_SCREEN, {
             player: player,
             flipped: flipped

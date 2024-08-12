@@ -4,118 +4,67 @@
  * 
  */
 import React, { useState } from 'react';
-import { 
+import {
     StyleSheet,
     Text,
-    Pressable,
-    ViewStyle,
-    TextStyle,
-    View
- } from 'react-native';
- import defined_colors from './colors';
+    View,
+    FlatList,
+    TouchableOpacity
+} from 'react-native';
+import defined_colors from './colors';
+import Feather from 'react-native-vector-icons/Feather'
 
- type ArrowSelectorProps<P = unknown> = P & {
-    itemLst: number[];
-    currentLP: (currentLP: number) => void;
- }
+type LpChooserProps<P = unknown> = P & {
+    dialPadContent: (string | number)[];
+    pinLength: number;
+    dialPadSize: number;
+    dialPadTextSize: number;
+}
 
- /**
-  * Module to choose what amount of LP is lossed or gained
-  * @param itemLst list of numbers 
-  * @returns React.JSX.Element of arrow selector 
-  */
-export function LpChooser({itemLst, currentLP}: ArrowSelectorProps) {
-
-    const [index, setIndex] = useState(0);
-    const [item, setItem] = useState(itemLst[0]);
-
-    const cycleLeft = (): void => {
-        let i = index;
-        if (i == 0) {
-            i = itemLst.length - 1;
-        } else {
-            i -= 1;
-        }
-        setIndex(i);
-        setItem(itemLst[i]);
-        currentLP(itemLst[i]);
-    }
-
-    const cycleRight = (): void => {
-        let i = index;
-        if (i == itemLst.length - 1) {
-            i = 0;
-        } else {
-            i += 1;
-        }
-        setIndex(i);
-        setItem(itemLst[i]);
-        currentLP(itemLst[i]);
-    }
-
+/**
+ * Module to choose what amount of LP is lossed or gained
+ * @param itemLst list of numbers 
+ * @returns React.JSX.Element of arrow selector 
+ */
+export function LpChooser(
+    { dialPadContent, pinLength, dialPadSize, dialPadTextSize }: LpChooserProps) {
     return (
-        <View style={styles.container}>
-            <Pressable style={({pressed}) => [
-                styles.triangle, styles.arrowLeft, 
-                {borderRightColor: pressed ? defined_colors.dark_blue : defined_colors.blue}]}
-            onPress={cycleLeft} />
-            <Text style={styles.text}>
-                {item}
-            </Text>
-            <Pressable style={({pressed}) => [
-                styles.triangle, styles.arrowRight, 
-                {borderLeftColor: pressed ? defined_colors.dark_red : defined_colors.red}]}
-            onPress={cycleRight} />
-        </View>
-    )
+        <FlatList
+        data={dialPadContent}
+        numColumns={3}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ item }) => {
+            return (
+                <TouchableOpacity disabled={item === ""}>
+                    <View style={[{
+                    backgroundColor: item === "" ? "transparent" : "#fff",
+                    width: dialPadSize,
+                    height: dialPadSize,
+                    }, styles.dialPadContainer]}>
+                        {item === "X" ? (
+                            <Feather name="delete" size={24} color="#3F1D38" />
+                        ) : (
+                            <Text style={[{ fontSize: dialPadTextSize }, styles.dialPadText]}>
+                                {item}
+                            </Text>
+                        )}
+                    </View>
+                </TouchableOpacity>
+            );
+        }}
+        />
+    );
 }
 
-interface Styles {
-    container: ViewStyle;
-    triangle: ViewStyle;
-    arrowLeft: ViewStyle;
-    arrowRight: ViewStyle;
-    text: TextStyle;
-}
-
-const styles = StyleSheet.create<Styles>({
-    container: {
-        height: 60,
-        width: 200,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: defined_colors.sienna
-      },
-    triangle: {
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid'
+const styles = StyleSheet.create({
+    dialPadContainer: {
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        margin: 10,
+        borderRadius: 50,
+        borderColor: "transparent",
     },
-    arrowLeft: {
-        borderTopWidth: 20,
-        borderRightWidth: 30,
-        borderBottomWidth: 20,
-        borderLeftWidth: 0,
-        borderTopColor: 'transparent',
-        borderBottomColor: 'transparent',
-        borderLeftColor: 'transparent'
+    dialPadText: {
+        color: "#3F1D38",
     },
-    arrowRight: {
-        borderTopWidth: 20,
-        borderRightWidth: 0,
-        borderBottomWidth: 20,
-        borderLeftWidth: 30,
-        borderTopColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'transparent',
-        borderLeftColor: "red"
-    },
-    text: {
-        textAlign: 'center',
-        color: defined_colors.bright_orange,
-        fontSize: 25
-    }
 });

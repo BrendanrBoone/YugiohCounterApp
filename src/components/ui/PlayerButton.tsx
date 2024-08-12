@@ -53,7 +53,7 @@ const styles = StyleSheet.create<Styles>({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        transform: [{scaleY: -1}]
+        transform: [{rotate: "180deg"}]
     },
     text: {
         textAlign: 'center',
@@ -63,7 +63,6 @@ const styles = StyleSheet.create<Styles>({
     flippedText: {
         textAlign: 'center',
         color: defined_colors.white,
-        fontSize: 100,
-        transform: [{scaleX: -1}]
+        fontSize: 100
     }
 });

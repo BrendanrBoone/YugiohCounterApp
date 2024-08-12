@@ -47,7 +47,7 @@ export default function HomeScreen(props: IHomeScreenProps) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={{alignSelf: 'center', marginTop: 0}}>
-                <ArrowSelector itemLst={defined_starting_LP} currentItem={handleCurrentLP} />
+                <ArrowSelector itemLst={defined_starting_LP} currentLP={handleCurrentLP} />
             </View>
             
             <View style={styles.duelView}>
