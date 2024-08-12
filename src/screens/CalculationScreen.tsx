@@ -43,7 +43,11 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
 
     useEffect(() => {
         setPlayerLpResultGained(playerLP + lpChange);
-        setPlayerLpResultReceived(playerLP - lpChange);
+        if (playerLP - lpChange < 0) {
+            setPlayerLpResultReceived(0);
+        } else {
+            setPlayerLpResultReceived(playerLP - lpChange);
+        }
     })
 
     const updatePlayerLP = (player: IPlayer, newLP: number) => {
@@ -55,8 +59,20 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
             ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
     };
 
-    const handleCalculate = () => {
-        const newLP = lpChange + 1;
+    const goBack = () => {
+        functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
+        props.navigation.navigate(route_names.BATTLE_SCREEN);
+    };
+
+    const handleCalculateGain = () => {
+        const newLP = playerLpResultGained;
+        updatePlayerLP(props.route.params.player, newLP);
+        functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
+        props.navigation.navigate(route_names.BATTLE_SCREEN);
+    };
+
+    const handleCalculateReceive = () => {
+        const newLP = playerLpResultReceived;
         updatePlayerLP(props.route.params.player, newLP);
         functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
         props.navigation.navigate(route_names.BATTLE_SCREEN);
@@ -74,7 +90,7 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
             </View>
             <View style={styles.text}>
                 <TouchableOpacity
-                onPress={handleCalculate}
+                onPress={goBack}
                 style={styles.backButtonContainer}>
                     <Feather name="chevron-left"
                     size={70} color={defined_colors.slightlybrown_darkgrey} />
@@ -96,11 +112,14 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
                 dialPadTextSize={dialPadTextSize}/>
             </View>
             <View style={styles.calculationButtonsContainer}>
-                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.red, flex: 1}]}>
+                <TouchableOpacity 
+                style={[styles.calculationButton, {backgroundColor: defined_colors.red, flex: 1}]}
+                onPress={handleCalculateReceive}>
                     <Feather name="minus-circle"
                     size={45} color={defined_colors.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.blue, flex: 1}]}>
+                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.blue, flex: 1}]}
+                onPress={handleCalculateGain}>
                     <Feather name="plus-circle"
                     size={45} color={defined_colors.white} />
                 </TouchableOpacity>
