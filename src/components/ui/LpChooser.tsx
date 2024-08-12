@@ -1,5 +1,5 @@
 /**
- * ArrowSelector.tsx
+ * LpChooser.tsx
  * 
  * 
  */
@@ -20,12 +20,11 @@ import {
  }
 
  /**
-  * specifically designed to choose predetermined list of LP values
-  * for Yugioh game => 4000, 8000, etc
+  * Module to choose what amount of LP is lossed or gained
   * @param itemLst list of numbers 
   * @returns React.JSX.Element of arrow selector 
   */
-export function ArrowSelector({itemLst, currentLP}: ArrowSelectorProps) {
+export function LpChooser({itemLst, currentLP}: ArrowSelectorProps) {
 
     const [index, setIndex] = useState(0);
     const [item, setItem] = useState(itemLst[0]);
