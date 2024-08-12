@@ -16,7 +16,6 @@ import useAppContext from "../components/hooks/useAppContext";
 import defined_colors from "../components/ui/colors";
 import { IPlayer } from "../components/state/IBattleDocument";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
-import Icon from "react-native-vector-icons/Ionicons"
 import { LpChooser } from "../components/ui/LpChooser";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Feather from "react-native-vector-icons/Feather";
@@ -57,24 +56,26 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
         <SafeAreaView style={flipped ? styles.flippedContainer : styles.container}>
             <View style={styles.text}>
                 <TouchableOpacity
-                onPress={() => props.navigation.goBack()}
+                onPress={handleCalculate}
                 style={styles.backButtonContainer}>
                     <Feather name="chevron-left"
-                    size={100} color={defined_colors.white} />
+                    size={50} color={defined_colors.white} />
                 </TouchableOpacity>
-                <Text style={styles.pinText}>SOMETHING HERE</Text>
+                <View style={styles.textViewBox} pointerEvents="none">
+                    <Text style={styles.pinText}>{lP}</Text>
+                </View>
                 <LpChooser
                 dialPadContent = {dialPadContent}
                 pinLength={pinLength}
                 dialPadSize={dialPadSize}
                 dialPadTextSize={dialPadTextSize}/>
             </View>
-            <View style={{flexDirection: "row", flex: 1}}>
-                <TouchableOpacity style={{backgroundColor: defined_colors.red}}>
+            <View style={{flexDirection: "row", flex: 1, justifyContent: "center"}}>
+                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.red}]}>
                     <Feather name="minus-circle"
                     size={45} color={defined_colors.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor: defined_colors.blue}}>
+                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.blue}]}>
                     <Feather name="plus-circle"
                     size={45} color={defined_colors.white} />
                 </TouchableOpacity>
@@ -86,32 +87,42 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FAF0E6"
+        justifyContent: "center",
+        backgroundColor: defined_colors.whiteThatisalittlered
+    },
+    flippedContainer: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: defined_colors.whiteThatisalittlered,
+        transform: [{rotate: '180deg'}]
     },
     text: {
         justifyContent: "center",
         alignItems: "center",
         marginTop: 40,
         position: "relative",
-        backgroundColor: "black"
+        backgroundColor: defined_colors.black
     },
     pinText: {
         fontSize: 30,
         fontWeight: "medium",
         color: "#5E454B",
-    },
-    flippedContainer: {
-        flex: 1,
-        backgroundColor: "#FAF0E6",
-        transform: [{rotate: '180deg'}]
+        backgroundColor: defined_colors.dark_brownish
     },
     backButtonContainer: {
         position: "absolute",
-        top: -30,
-        left: -width/2 +100,
-        width: 100,
-        backgroundColor: defined_colors.sienna,
-        borderWidth: 1,
-        borderColor: "red"
+        left: -width/2 + 20,
+        backgroundColor: defined_colors.sienna
+    },
+    textViewBox: {
+        width: width,
+        alignItems: "center"
+    },
+    calculationButton: {
+        width: width/2,
+        height: height/3,
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center"
     }
 });

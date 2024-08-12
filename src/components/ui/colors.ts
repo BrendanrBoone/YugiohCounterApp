@@ -10,7 +10,8 @@ const defined_colors = {
     dark_red: "#630903",
     white: 'white',
     dark_brownish: '#3F1D38',
-    slightlybrown_darkgrey: '#5E454B'
+    slightlybrown_darkgrey: '#5E454B',
+    whiteThatisalittlered: '#FAF0E6'
 }
 
 export default defined_colors;
