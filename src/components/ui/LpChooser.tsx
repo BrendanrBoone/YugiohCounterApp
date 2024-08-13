@@ -39,7 +39,7 @@ export function LpChooser(
         } else if (lp_string.length > 0 && key == "X") {
             lp_string = lp_string.slice(0, -1);
         }
-        if (lp_string == "") {
+        if (lp_string == "" || key == "") {
             lp_string = "0";
         }
         setLpChange(parseInt(lp_string));
@@ -52,16 +52,15 @@ export function LpChooser(
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => {
                 return (
-                    <TouchableOpacity disabled={item === ""} onPress={() => typeLP(item)}>
+                    <TouchableOpacity onPress={() => typeLP(item)}>
                         <View style={[{
-                            backgroundColor: item === "" ? "transparent" : defined_colors.dark_grey,
-                            borderColor: item === "" ? "transparent" : defined_colors.sienna,
-                            borderWidth: item === "" ? 0 : 1,
                             width: dialPadSize,
                             height: dialPadSize,
                         }, styles.dialPadContainer]}>
                             {item === "X" ? (
                                 <Feather name="delete" size={24} color={defined_colors.white} />
+                            ) : item === "" ? (
+                                <Feather name="refresh-cw" size={24} color={defined_colors.white} />
                             ) : (
                                 <Text style={[{ fontSize: dialPadTextSize }, styles.dialPadText]}>
                                     {item}
@@ -80,6 +79,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
         margin: 10,
+        backgroundColor: defined_colors.dark_grey,
+        borderColor: defined_colors.sienna,
+        borderWidth: 1,
         borderRadius: 50
     },
     dialPadText: {

@@ -42,7 +42,11 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
     const flipped = props.route.params.flipped;
 
     useEffect(() => {
-        setPlayerLpResultGained(playerLP + lpChange);
+        if (playerLP + lpChange > 999999) {
+            setPlayerLpResultGained(999999);
+        } else {
+            setPlayerLpResultGained(playerLP + lpChange);
+        }
         if (playerLP - lpChange < 0) {
             setPlayerLpResultReceived(0);
         } else {

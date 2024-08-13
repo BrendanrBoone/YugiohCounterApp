@@ -21,17 +21,24 @@ export default function BattleScreen(props: IBattleScreenProps) {
 
     const ctx = useAppContext();
 
+    useEffect(() => {
+        if (ctx.player1.countLP == 0) {
+            setTimeout(() => {
+                console.log("delayed action");
+                handleGameEnd();
+            }, 2000)
+        }
+        if (ctx.player2.countLP == 0) {
+            setTimeout(() => {
+                console.log("delayed action");
+                handleGameEnd();
+            }, 2000)
+        }
+    })
+
     const handleGameEnd = (): void => {
         functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
         props.navigation.navigate(route_names.HOME_SCREEN);
-    };
-
-    const updatePlayerLP = (player: IPlayer, newLP: number) => {
-        const updatePlayer: IPlayer = {
-            ...player,
-            countLP: newLP
-        };
-        (player == ctx.player1) ? ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
     };
 
     const goToCalculation = (player: IPlayer, flipped: boolean) => {
