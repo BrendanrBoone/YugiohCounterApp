@@ -66,7 +66,7 @@ export default function BattleScreen(props: IBattleScreenProps) {
                 </PlayerButton>
             </View>
             <View style={styles.p1Half}>
-                <PlayerButton 
+                <PlayerButton
                 key="p1"
                 onPress={handleP1}
                 color={defined_colors.red}

@@ -19,17 +19,17 @@ import functionLibrary from "../components/state/ScrnDepFuncLib";
 import { LpChooser } from "../components/ui/LpChooser";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Feather from "react-native-vector-icons/Feather";
+import Sound from "react-native-sound";
 
 const { width, height } = Dimensions.get("window");
+const horizontalMargin_calculationButtons = 20;
 
 const dialPadContent = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "X"];
-
 const dialPadSize = width * 0.2;
 const dialPadTextSize = dialPadSize * 0.4;
-
 const pinLength = 6;
 
-const horizontalMargin_calculationButtons = 20;
+Sound.setCategory("Playback");
 
 export default function CalculationScreen(props: ICalculationScreenProps) {
 
@@ -54,12 +54,18 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
         }
     })
 
+    var lifePointNoise = new Sound("health_change.mp3", Sound.MAIN_BUNDLE);
+
+    const playNoise = () => {
+        lifePointNoise.play();
+    }
+
     const updatePlayerLP = (player: IPlayer, newLP: number) => {
         const updatePlayer: IPlayer = {
             ...player,
             countLP: newLP
         };
-        (player == ctx.player1) ? 
+        (player == ctx.player1) ?
             ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
     };
 
@@ -71,61 +77,61 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
     const handleCalculateGain = () => {
         const newLP = playerLpResultGained;
         updatePlayerLP(props.route.params.player, newLP);
-        functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
-        props.navigation.navigate(route_names.BATTLE_SCREEN);
+        playNoise();
+        goBack();
     };
 
     const handleCalculateReceive = () => {
         const newLP = playerLpResultReceived;
         updatePlayerLP(props.route.params.player, newLP);
-        functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
-        props.navigation.navigate(route_names.BATTLE_SCREEN);
+        playNoise();
+        goBack();
     };
 
     return (
         <SafeAreaView style={flipped ? styles.flippedContainer : styles.container}>
-            <View style={{width: width, alignItems: "center"}}>
-                <Text style={{fontSize: 40, color: defined_colors.slightlybrown_darkgrey}}>
+            <View style={{ width: width, alignItems: "center" }}>
+                <Text style={{ fontSize: 40, color: defined_colors.slightlybrown_darkgrey }}>
                     LP CALCULATOR
                 </Text>
-                <Text style={{fontSize: 20, color: defined_colors.slightlybrown_darkgrey}}>
+                <Text style={{ fontSize: 20, color: defined_colors.slightlybrown_darkgrey }}>
                     Choose amount to receive or gain
                 </Text>
             </View>
             <View style={styles.text}>
                 <TouchableOpacity
-                onPress={goBack}
-                style={styles.backButtonContainer}>
+                    onPress={goBack}
+                    style={styles.backButtonContainer}>
                     <Feather name="chevron-left"
-                    size={70} color={defined_colors.slightlybrown_darkgrey} />
+                        size={70} color={defined_colors.slightlybrown_darkgrey} />
                 </TouchableOpacity>
                 <View style={styles.textViewBox} pointerEvents="none" key="LpText">
                     <Text style={styles.pinText}>{lpChange}</Text>
                 </View>
                 <View style={styles.textViewBox} pointerEvents="none" key="playerLp">
-                    <Text style={{fontSize: 20, color: defined_colors.slightlybrown_darkgrey}}>
+                    <Text style={{ fontSize: 20, color: defined_colors.slightlybrown_darkgrey }}>
                         {"=" + playerLpResultReceived + " or " + playerLpResultGained}
                     </Text>
                 </View>
                 <LpChooser
-                dialPadContent = {dialPadContent}
-                pinLength={pinLength}
-                lpChange={lpChange}
-                setLpChange={setLpChange}
-                dialPadSize={dialPadSize}
-                dialPadTextSize={dialPadTextSize}/>
+                    dialPadContent={dialPadContent}
+                    pinLength={pinLength}
+                    lpChange={lpChange}
+                    setLpChange={setLpChange}
+                    dialPadSize={dialPadSize}
+                    dialPadTextSize={dialPadTextSize} />
             </View>
             <View style={styles.calculationButtonsContainer}>
-                <TouchableOpacity 
-                style={[styles.calculationButton, {backgroundColor: defined_colors.red, flex: 1}]}
-                onPress={handleCalculateReceive}>
+                <TouchableOpacity
+                    style={[styles.calculationButton, { backgroundColor: defined_colors.red, flex: 1 }]}
+                    onPress={handleCalculateReceive}>
                     <Feather name="minus-circle"
-                    size={45} color={defined_colors.white} />
+                        size={45} color={defined_colors.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.calculationButton, {backgroundColor: defined_colors.blue, flex: 1}]}
-                onPress={handleCalculateGain}>
+                <TouchableOpacity style={[styles.calculationButton, { backgroundColor: defined_colors.blue, flex: 1 }]}
+                    onPress={handleCalculateGain}>
                     <Feather name="plus-circle"
-                    size={45} color={defined_colors.white} />
+                        size={45} color={defined_colors.white} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -140,11 +146,11 @@ const styles = StyleSheet.create({
     flippedContainer: {
         flex: 1,
         justifyContent: "center",
-        transform: [{rotate: '180deg'}]
+        transform: [{ rotate: '180deg' }]
     },
     backButtonContainer: {
         position: "absolute",
-        left: -width/2 + 10
+        left: -width / 2 + 10
     },
     text: {
         justifyContent: "center",
@@ -172,7 +178,7 @@ const styles = StyleSheet.create({
         marginHorizontal: horizontalMargin_calculationButtons
     },
     calculationButton: {
-        width: (width - horizontalMargin_calculationButtons*2)/2,
+        width: (width - horizontalMargin_calculationButtons * 2) / 2,
         justifyContent: "center",
         alignItems: "center",
         alignContent: "center"
