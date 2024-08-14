@@ -16,6 +16,8 @@ import defined_colors from "../components/ui/colors";
 import { PlayerButton } from "../components/ui/PlayerButton";
 import useAppContext from "../components/hooks/useAppContext";
 import { IPlayer } from "../components/state/IBattleDocument";
+import { DemoButton } from "../components/ui/DemoButton";
+import VideoPlayer from "../components/ui/VideoPlayer";
 
 export default function BattleScreen(props: IBattleScreenProps) {
 
@@ -80,9 +82,10 @@ export default function BattleScreen(props: IBattleScreenProps) {
             visible={winDow_visibility}
             onRequestClose={handleGameEnd}>
                 <View style={ctx.player1.countLP == 0 ? styles.win_dow : styles.win_dow_flipped}>
-                    <PlayerButton onPress={() => console.log("modal window opened")}>
+                    <VideoPlayer/>
+                    <DemoButton onPress={() => console.log("modal window opened")}>
                         SOMETHING HERE
-                    </PlayerButton>
+                    </DemoButton>
                 </View>
             </Modal>
         </SafeAreaView>
