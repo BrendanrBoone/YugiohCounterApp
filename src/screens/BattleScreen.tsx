@@ -17,13 +17,19 @@ import { PlayerButton } from "../components/ui/PlayerButton";
 import useAppContext from "../components/hooks/useAppContext";
 import { IPlayer } from "../components/state/IBattleDocument";
 import { DemoButton } from "../components/ui/DemoButton";
-import VideoPlayer from "../components/ui/VideoPlayer";
+import { VideoPlayer } from "../components/ui/VideoPlayer";
 
 export default function BattleScreen(props: IBattleScreenProps) {
 
     const ctx = useAppContext();
 
     const [winDow_visibility, setWinDow_visibility] = useState(false);
+
+    //it is setup so a random video from this list is played after a game
+    const ending_videos: NodeRequire[] = [
+        require("../assets/videos_mp4/exodia_obliterate.mp4")
+    ];
+    const random_ending: NodeRequire = ending_videos[Math.floor(Math.random() * ending_videos.length)];
 
     useEffect(() => {
         if (!winDow_visibility && (ctx.player1.countLP === 0 || ctx.player2.countLP === 0)) {
@@ -82,7 +88,9 @@ export default function BattleScreen(props: IBattleScreenProps) {
             visible={winDow_visibility}
             onRequestClose={handleGameEnd}>
                 <View style={ctx.player1.countLP == 0 ? styles.win_dow : styles.win_dow_flipped}>
-                    <VideoPlayer/>
+                    <VideoPlayer
+                    onEnd={handleGameEnd}
+                    source_location={random_ending}/>
                     <DemoButton onPress={() => console.log("modal window opened")}>
                         SOMETHING HERE
                     </DemoButton>
