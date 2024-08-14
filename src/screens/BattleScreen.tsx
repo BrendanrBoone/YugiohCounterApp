@@ -8,7 +8,9 @@ import {
     StyleSheet,
     View,
     SafeAreaView,
-    Modal
+    Modal,
+    Text,
+    Dimensions
 } from "react-native";
 import route_names, { IBattleScreenProps } from "../routes";
 import functionLibrary from "../components/state/ScrnDepFuncLib";
@@ -26,10 +28,13 @@ export default function BattleScreen(props: IBattleScreenProps) {
     const [winDow_visibility, setWinDow_visibility] = useState(false);
 
     //it is setup so a random video from this list is played after a game
-    const ending_videos: NodeRequire[] = [
-        require("../assets/videos_mp4/exodia_obliterate.mp4")
+    const ending_videos: [NodeRequire, NodeRequire][] = [
+        [
+            require("../assets/videos_mp4/exodia_obliterate.mp4"),
+            require("../assets/videos_mp4/exodia_obliterate_upsidedown.mp4")
+        ]
     ];
-    const random_ending: NodeRequire = ending_videos[Math.floor(Math.random() * ending_videos.length)];
+    const random_ending: [NodeRequire, NodeRequire] = ending_videos[Math.floor(Math.random() * ending_videos.length)];
 
     useEffect(() => {
         if (!winDow_visibility && (ctx.player1.countLP === 0 || ctx.player2.countLP === 0)) {
@@ -64,35 +69,44 @@ export default function BattleScreen(props: IBattleScreenProps) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.p2Half}>
-                <PlayerButton 
-                key="p2"
-                onPress={handleP2}
-                color={defined_colors.blue}
-                color_pressed={defined_colors.dark_blue}
-                flipped={true}>
+                <PlayerButton
+                    key="p2"
+                    onPress={handleP2}
+                    color={defined_colors.blue}
+                    color_pressed={defined_colors.dark_blue}
+                    flipped={true}>
                     {ctx.player2.countLP}
                 </PlayerButton>
             </View>
             <View style={styles.p1Half}>
                 <PlayerButton
-                key="p1"
-                onPress={handleP1}
-                color={defined_colors.red}
-                color_pressed={defined_colors.dark_red}>
+                    key="p1"
+                    onPress={handleP1}
+                    color={defined_colors.red}
+                    color_pressed={defined_colors.dark_red}>
                     {ctx.player1.countLP}
                 </PlayerButton>
             </View>
             <Modal
-            animationType="fade"
-            transparent={true}
-            visible={winDow_visibility}
-            onRequestClose={handleGameEnd}>
+                animationType="fade"
+                transparent={true}
+                visible={winDow_visibility}
+                onRequestClose={handleGameEnd}>
                 <View style={ctx.player1.countLP == 0 ? styles.win_dow : styles.win_dow_flipped}>
                     <VideoPlayer
-                    onEnd={handleGameEnd}
-                    source_location={random_ending}/>
-                    <DemoButton onPress={() => console.log("modal window opened")}>
-                        SOMETHING HERE
+                        onEnd={handleGameEnd}
+                        source_location={ctx.player1.countLP == 0 ? random_ending[0] : random_ending[1]}
+                        flipped={ctx.player1.countLP == 0 ? false : true} />
+                    <View style={{flexDirection: "row", justifyContent: "center"}}>
+                        <Text style={{fontSize: 50}}>
+                            YOU WIN
+                        </Text>
+                    </View>
+                    <DemoButton
+                    onPress={handleGameEnd}
+                    color={defined_colors.dark_grey}
+                    color_pressed={defined_colors.black}>
+                        CLOSE
                     </DemoButton>
                 </View>
             </Modal>
@@ -127,11 +141,19 @@ const styles = StyleSheet.create({
     },
     win_dow: {
         flex: 1,
-        backgroundColor: "red"
+        maxHeight: 500,
+        marginVertical: '35%',
+        backgroundColor: "purple",
+        opacity: 0.8,
+        justifyContent: "center"
     },
     win_dow_flipped: {
         flex: 1,
-        backgroundColor: "red",
-        transform: [{rotate: "180deg"}]
+        maxHeight: 500,
+        marginVertical: '35%',
+        backgroundColor: "purple",
+        opacity: 0.9,
+        justifyContent: "center",
+        transform: [{ rotate: "180deg" }]
     }
 });
