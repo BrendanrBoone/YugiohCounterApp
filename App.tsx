@@ -8,22 +8,7 @@
  */
 
 import React from 'react';
-import type { PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { useColorScheme } from 'react-native';
 import {
   DarkTheme,
   DefaultTheme,
@@ -33,11 +18,6 @@ import StackNavigationScreen from './src/components/nav_stacks/StackNavigationSc
 import AppState from './src/components/state/AppState';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   const scheme = useColorScheme();
 

@@ -37,7 +37,7 @@ const route_names: IRoutes = {
     CALCULATION_SCREEN: "Calculation"
 };
 
-// Stack Screens
+// Stack Screen Props. ie parameter information and such
 export type IHomeScreenProps = StackScreenProps<IStackParamList, typeof route_names.HOME_SCREEN>;
 export type IBattleScreenProps = StackScreenProps<IStackParamList, typeof route_names.BATTLE_SCREEN>;
 export type ICalculationScreenProps = StackScreenProps<IStackParamList, typeof route_names.CALCULATION_SCREEN>;
