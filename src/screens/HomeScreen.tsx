@@ -20,7 +20,7 @@ import useAppContext from "../components/hooks/useAppContext";
 /**
  * The First Screen the user sees
  * ArrowSelector at the top to choose starting LP
- * Big button in the middle to start the LP counter
+ * DemoButton in the middle to start the LP counter
  * 
  * @param props 
  * @returns 

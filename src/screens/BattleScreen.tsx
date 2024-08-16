@@ -20,6 +20,14 @@ import { IPlayer } from "../components/state/IBattleDocument";
 import { DemoButton } from "../components/ui/DemoButton";
 import { VideoPlayer } from "../components/ui/VideoPlayer";
 
+/**
+ * The main screen of the app
+ * PlayerButtons displays both players LP
+ * and can be pressed to access the calculation screen
+ * 
+ * @param props 
+ * @returns 
+ */
 export default function BattleScreen(props: IBattleScreenProps) {
 
     //provides player information
