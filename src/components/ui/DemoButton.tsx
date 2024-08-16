@@ -1,3 +1,8 @@
+/**
+ * DemoButton.tsx
+ * 
+ * Button module
+ */
 import React from 'react';
 import { 
     StyleSheet,
@@ -19,6 +24,12 @@ type DemoButtonProps<P = unknown> = P & {
     flipped?: boolean | undefined
 }
 
+/**
+ * general button that can be specified if it is oriented upside down or not
+ * 
+ * @param param0 
+ * @returns 
+ */
 export function DemoButton({onPress, children, color, color_pressed, flipped}: DemoButtonProps<Props>) {
     return (
         <Pressable
