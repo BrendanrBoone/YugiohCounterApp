@@ -1,3 +1,8 @@
+/**
+ * useAppContext.tsx
+ * 
+ * allows global access to player information
+ */
 import { useContext } from "react";
 import { AppContext } from "../state/AppState";
 
