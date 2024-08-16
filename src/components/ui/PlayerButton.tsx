@@ -1,3 +1,8 @@
+/**
+ * PlayerButton.tsx
+ * 
+ * Button module for the Players and their displayed LP
+ */
 import React from 'react';
 import { 
     StyleSheet,
@@ -20,6 +25,13 @@ type PlayerButtonProps<P = unknown> = P & {
     disabled?: boolean | undefined;
 }
 
+/**
+ * Big button that takes up half the screen
+ * displays its children very largely
+ * 
+ * @param param0 
+ * @returns 
+ */
 export function PlayerButton({onPress, children, color, color_pressed, flipped, disabled}: PlayerButtonProps<Props>) {
     return (
         <Pressable
