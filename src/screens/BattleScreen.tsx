@@ -51,11 +51,13 @@ export default function BattleScreen(props: IBattleScreenProps) {
         }
     }, [ctx.player1.countLP, ctx.player2.countLP, winDow_visibility])
 
+    //navigates back to home screen
     const handleGameEnd = (): void => {
         functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
         props.navigation.navigate(route_names.HOME_SCREEN);
     }
 
+    //navigates to calculation screen
     const goToCalculation = (player: IPlayer, flipped: boolean) => {
         functionLibrary.printLogScreen(route_names.BATTLE_SCREEN);
         props.navigation.navigate(route_names.CALCULATION_SCREEN, {
@@ -64,10 +66,12 @@ export default function BattleScreen(props: IBattleScreenProps) {
         });
     }
 
+    //navigates to calculation screen using P1 parameters
     const handleP1 = (): void => {
         goToCalculation(ctx.player1, false);
     }
 
+    //navigates to calculation screen using P2 parameters
     const handleP2 = (): void => {
         goToCalculation(ctx.player2, true);
     }
