@@ -1,3 +1,8 @@
+/**
+ * colors.ts
+ * 
+ * local defined colors for consistency
+ */
 const defined_colors = {
     dark_grey: "#121110",
     bright_orange: "#eb6405",
