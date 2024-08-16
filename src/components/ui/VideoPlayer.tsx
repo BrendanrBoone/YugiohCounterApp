@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+/**
+ * VideoPlayer.tsx
+ * 
+ * Video module that uses react-native-video
+ */
+import React from 'react';
 import { View } from 'react-native';
 import Video from 'react-native-video';
 
@@ -8,7 +13,13 @@ interface VideoPlayerProps {
   flipped: boolean;
 }
 
-export function VideoPlayer({ onEnd, source_location, flipped }: VideoPlayerProps) {
+/**
+ * untouchable video that runs a function when video ends
+ * 
+ * @param param0 
+ * @returns 
+ */
+export function VideoPlayer({ onEnd, source_location }: VideoPlayerProps) {
   const video = React.useRef<any>(null);
 
   return (
