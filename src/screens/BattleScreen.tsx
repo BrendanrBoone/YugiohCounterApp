@@ -22,9 +22,14 @@ import { VideoPlayer } from "../components/ui/VideoPlayer";
 
 export default function BattleScreen(props: IBattleScreenProps) {
 
+    //provides player information
     const ctx = useAppContext();
 
+    //visibility of win screen
     const [winDow_visibility, setWinDow_visibility] = useState(false);
+
+    //usability of player buttons
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     //it is setup so a random video from this list is played after a game
     const ending_videos: [NodeRequire, NodeRequire][] = [
@@ -35,8 +40,10 @@ export default function BattleScreen(props: IBattleScreenProps) {
     ];
     const random_ending: [NodeRequire, NodeRequire] = ending_videos[Math.floor(Math.random() * ending_videos.length)];
 
+    //constantly checks if a player has won
     useEffect(() => {
         if (!winDow_visibility && (ctx.player1.countLP === 0 || ctx.player2.countLP === 0)) {
+            setButtonDisabled(!buttonDisabled);
             setTimeout(() => {
                 console.log("delayed action!");
                 setWinDow_visibility(true);
@@ -73,7 +80,8 @@ export default function BattleScreen(props: IBattleScreenProps) {
                     onPress={handleP2}
                     color={defined_colors.blue}
                     color_pressed={defined_colors.dark_blue}
-                    flipped={true}>
+                    flipped={true}
+                    disabled={buttonDisabled}>
                     {ctx.player2.countLP}
                 </PlayerButton>
             </View>
@@ -82,7 +90,8 @@ export default function BattleScreen(props: IBattleScreenProps) {
                     key="p1"
                     onPress={handleP1}
                     color={defined_colors.red}
-                    color_pressed={defined_colors.dark_red}>
+                    color_pressed={defined_colors.dark_red}
+                    disabled={buttonDisabled}>
                     {ctx.player1.countLP}
                 </PlayerButton>
             </View>

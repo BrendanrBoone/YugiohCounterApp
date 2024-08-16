@@ -17,12 +17,14 @@ type PlayerButtonProps<P = unknown> = P & {
     children?: React.ReactNode | undefined;
     color?: string | undefined;
     color_pressed?: string | undefined;
+    disabled?: boolean | undefined;
 }
 
-export function PlayerButton({onPress, children, color, color_pressed, flipped}: PlayerButtonProps<Props>) {
+export function PlayerButton({onPress, children, color, color_pressed, flipped, disabled}: PlayerButtonProps<Props>) {
     return (
         <Pressable
         onPress={onPress}
+        disabled={disabled}
         style={({pressed}) => [
             {backgroundColor: pressed ? color_pressed : color},
             flipped ? styles.flippedContainer : styles.container
