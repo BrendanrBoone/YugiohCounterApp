@@ -1,7 +1,7 @@
 /**
  * ArrowSelector.tsx
  * 
- * 
+ * Rotates through given list of numbers
  */
 import React, { useState } from 'react';
 import { 
@@ -23,13 +23,15 @@ import {
   * specifically designed to choose predetermined list of LP values
   * for Yugioh game => 4000, 8000, etc
   * @param itemLst list of numbers 
+  * @param currentLP parent inputed function (handleCurrentLP) updates currently selected starting LP
   * @returns React.JSX.Element of arrow selector 
   */
 export function ArrowSelector({itemLst, currentLP}: ArrowSelectorProps) {
 
-    const [index, setIndex] = useState(0);
-    const [item, setItem] = useState(itemLst[0]);
+    const [index, setIndex] = useState(0); //current index of itemLst
+    const [item, setItem] = useState(itemLst[0]); //current item of itemLst
 
+    //cycles index left and sets currentLP
     const cycleLeft = (): void => {
         let i = index;
         if (i == 0) {
@@ -42,6 +44,7 @@ export function ArrowSelector({itemLst, currentLP}: ArrowSelectorProps) {
         currentLP(itemLst[i]);
     }
 
+    //cycles index right and sets currentLP
     const cycleRight = (): void => {
         let i = index;
         if (i == itemLst.length - 1) {
