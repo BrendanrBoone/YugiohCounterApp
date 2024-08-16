@@ -1,5 +1,6 @@
 /**
  * StackNavigationScreen.tsx
+ * 
  * Navigational stack of screens for app
  */
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,7 +13,7 @@ const HomeStack = createStackNavigator<IStackParamList>();
 
 /**
  * Starts at HomeScreen.
- * Allows the user to move between these screens.
+ * 
  * @returns Navigational Stack of Screens.
  */
 export default function StackNavigationScreen() {

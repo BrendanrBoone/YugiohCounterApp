@@ -9,8 +9,7 @@ import {
     View,
     SafeAreaView,
     Modal,
-    Text,
-    Dimensions
+    Text
 } from "react-native";
 import route_names, { IBattleScreenProps } from "../routes";
 import functionLibrary from "../components/state/ScrnDepFuncLib";

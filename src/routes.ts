@@ -8,7 +8,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { IPlayer } from "./components/state/IBattleDocument";
 
 /**
- * Defines what parameters gets sent to a screen route
+ * Defines the parameters to a screen
  * 
  * ::App Route Plan::
  * 
@@ -24,20 +24,20 @@ export type IStackParamList = {
     [route_names.CALCULATION_SCREEN]: {player: IPlayer, flipped: boolean}
 };
 
-//routes
 export interface IRoutes {
     HOME_SCREEN: "Home",
     BATTLE_SCREEN: "Battle",
     CALCULATION_SCREEN: "Calculation"
 };
 
+//defined route names
 const route_names: IRoutes = {
     HOME_SCREEN: "Home",
     BATTLE_SCREEN: "Battle",
     CALCULATION_SCREEN: "Calculation"
 };
 
-// Stack Screen Props. ie parameter information and such
+// Stack Screen Props. ie provides parameter information and such when within a screen
 export type IHomeScreenProps = StackScreenProps<IStackParamList, typeof route_names.HOME_SCREEN>;
 export type IBattleScreenProps = StackScreenProps<IStackParamList, typeof route_names.BATTLE_SCREEN>;
 export type ICalculationScreenProps = StackScreenProps<IStackParamList, typeof route_names.CALCULATION_SCREEN>;
