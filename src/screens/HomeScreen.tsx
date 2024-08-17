@@ -31,7 +31,7 @@ export default function HomeScreen(props: IHomeScreenProps) {
     const ctx = useAppContext();
 
     //defined choice LP values
-    const defined_starting_LP = [4000, 8000];
+    const defined_starting_LP = [8000, 4000];
     const [currentLP, setCurrentLP] = useState(defined_starting_LP[0]);
 
     //wrapper function for ArrowSelector
