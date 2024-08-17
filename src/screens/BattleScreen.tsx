@@ -116,7 +116,7 @@ export default function BattleScreen(props: IBattleScreenProps) {
                     <VideoPlayer
                         onEnd={handleGameEnd}
                         source_location={ctx.player1.countLP == 0 ? random_ending[0] : random_ending[1]}
-                        flipped={ctx.player1.countLP == 0 ? false : true} />
+                        flipped={ctx.player1.countLP == 0 ? true : false} />
                     <View style={{flexDirection: "row", justifyContent: "center"}}>
                         <Text style={{fontSize: 50}}>
                             YOU WIN
