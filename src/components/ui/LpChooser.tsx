@@ -16,7 +16,7 @@ import Feather from 'react-native-vector-icons/Feather'
 
 type LpChooserProps<P = unknown> = P & {
     dialPadContent: (string | number)[];
-    pinLength: number;
+    digitLength: number;
     lpChange: number;
     setLpChange: React.Dispatch<React.SetStateAction<number>>;
     dialPadSize: number;
@@ -29,12 +29,12 @@ type LpChooserProps<P = unknown> = P & {
  * @returns React.JSX.Element of arrow selector 
  */
 export function LpChooser(
-    { dialPadContent, pinLength, lpChange, setLpChange, dialPadSize, dialPadTextSize }: LpChooserProps) {
+    { dialPadContent, digitLength, lpChange, setLpChange, dialPadSize, dialPadTextSize }: LpChooserProps) {
 
     const typeLP = (item: (string | number)): void => {
         let lp_string = lpChange.toString();
         const key = (typeof item === 'string') ? item : item.toString();
-        if (lp_string.length < pinLength && key != "X") {
+        if (lp_string.length < digitLength && key != "X") {
             lp_string = lp_string + key;
         } else if (lp_string.length > 0 && key == "X") {
             lp_string = lp_string.slice(0, -1);

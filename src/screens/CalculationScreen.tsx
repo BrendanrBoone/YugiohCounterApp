@@ -1,7 +1,7 @@
 /**
  * CalculationScreen.tsx
  * 
- * Home Screen component.
+ * LP Calculation Screen component.
  */
 import { useState, useEffect } from "react";
 import {
@@ -21,26 +21,37 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Feather from "react-native-vector-icons/Feather";
 import Sound from "react-native-sound";
 
-const { width, height } = Dimensions.get("window");
-const horizontalMargin_calculationButtons = 20;
+const { width } = Dimensions.get("window");
+const horizontalMargin_calculationButtons = 20; //changes the width of the + and - buttons
 
 const dialPadContent = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "X"];
 const dialPadSize = width * 0.2;
 const dialPadTextSize = dialPadSize * 0.4;
-const pinLength = 6;
+const digitLength = 6; //limit in number of digits adjustable in calculation
 
 Sound.setCategory("Playback");
 
+/**
+ * adjusts LP of user
+ * LpChooser is a keypad that is limited by digitLength and can clear
+ * LP can not go negative
+ * plays LP sound when calculation is finished
+ * 
+ * @param props 
+ * @returns 
+ */
 export default function CalculationScreen(props: ICalculationScreenProps) {
 
+    //provides player information
     const ctx = useAppContext();
 
-    const playerLP = props.route.params.player.countLP;
-    const [lpChange, setLpChange] = useState(0);
-    const [playerLpResultGained, setPlayerLpResultGained] = useState(playerLP);
-    const [playerLpResultReceived, setPlayerLpResultReceived] = useState(playerLP);
-    const flipped = props.route.params.flipped;
+    const playerLP = props.route.params.player.countLP; //current LP of user
+    const [lpChange, setLpChange] = useState(0); //LP used to calculate, displayed in Orange
+    const [playerLpResultGained, setPlayerLpResultGained] = useState(playerLP); //playerLP + lpChange
+    const [playerLpResultReceived, setPlayerLpResultReceived] = useState(playerLP); //playerLP - lpChange
+    const flipped = props.route.params.flipped; //determines if screen is flipped
 
+    //live feedback of calculation and restricts LP calculation to Yugioh limits [0,999999]
     useEffect(() => {
         if (playerLP + lpChange > 999999) {
             setPlayerLpResultGained(999999);
@@ -60,6 +71,7 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
         lifePointNoise.play();
     }
 
+    //sets the player LP to a new value, stored back into AppState
     const updatePlayerLP = (player: IPlayer, newLP: number) => {
         const updatePlayer: IPlayer = {
             ...player,
@@ -69,11 +81,13 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
             ctx.updatePlayer1(updatePlayer) : ctx.updatePlayer2(updatePlayer);
     };
 
+    //navigates back to battle screen
     const goBack = () => {
         functionLibrary.printLogScreen(route_names.CALCULATION_SCREEN);
         props.navigation.navigate(route_names.BATTLE_SCREEN);
     };
 
+    //updates using playerLP + lpChange and returns to Battle screen
     const handleCalculateGain = () => {
         const newLP = playerLpResultGained;
         updatePlayerLP(props.route.params.player, newLP);
@@ -81,6 +95,7 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
         goBack();
     };
 
+    //updates using playerLP - lpChange and returns to Battle screen
     const handleCalculateReceive = () => {
         const newLP = playerLpResultReceived;
         updatePlayerLP(props.route.params.player, newLP);
@@ -115,7 +130,7 @@ export default function CalculationScreen(props: ICalculationScreenProps) {
                 </View>
                 <LpChooser
                     dialPadContent={dialPadContent}
-                    pinLength={pinLength}
+                    digitLength={digitLength}
                     lpChange={lpChange}
                     setLpChange={setLpChange}
                     dialPadSize={dialPadSize}
