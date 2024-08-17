@@ -3,12 +3,11 @@
 >**Description**: A counter app for when playing the Yugioh card game. Built using the React Native API. Currently only for Android. Intended to be used between two players.
 
 ## Images
-<img src="./src/assets/images/Screenshot_20240816_172015_YugiohCounterApp.jpg" width="200" />
-<img src="./src/assets/images/Screenshot_20240816_172021_YugiohCounterApp.jpg" width="200" />
-<img src="./src/assets/images/Screenshot_20240816_172039_YugiohCounterApp.jpg" width="200" />
-![HomeScreen](./src/assets/images/Screenshot_20240816_172015_YugiohCounterApp.jpg)
-![BattleScreen](./src/assets/images/Screenshot_20240816_172021_YugiohCounterApp.jpg)
-![CalculationScreen](./src/assets/images/Screenshot_20240816_172039_YugiohCounterApp.jpg)
+<p float="left">
+    <img src="./src/assets/images/Screenshot_20240816_172015_YugiohCounterApp.jpg" width="200" />
+    <img src="./src/assets/images/Screenshot_20240816_172021_YugiohCounterApp.jpg" width="200" />
+    <img src="./src/assets/images/Screenshot_20240816_172039_YugiohCounterApp.jpg" width="200" />
+</p>
 
 ### Component I want to mention
 The win screen video can be changed or added in **ending_videos**, located in **BattleScreen.tsx**.
