@@ -1,7 +1,7 @@
 /**
  * LpChooser.tsx
  * 
- * 
+ * Keypad for calculation screen
  */
 import React, { useState } from 'react';
 import {
@@ -25,12 +25,16 @@ type LpChooserProps<P = unknown> = P & {
 
 /**
  * Module to choose what amount of LP is lossed or gained
+ * "X" is defined to be the backspace
+ * "" is defined to be the clear
+ * 
  * @param itemLst list of numbers 
  * @returns React.JSX.Element of arrow selector 
  */
 export function LpChooser(
     { dialPadContent, digitLength, lpChange, setLpChange, dialPadSize, dialPadTextSize }: LpChooserProps) {
 
+    //determines what is changed on the displayed LP depending on what key is pressed
     const typeLP = (item: (string | number)): void => {
         let lp_string = lpChange.toString();
         const key = (typeof item === 'string') ? item : item.toString();
