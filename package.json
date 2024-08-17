@@ -7,7 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "gradle-clean": "cd android && gradlew clean",
+    "debug": "react-native bundle --platform android --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "release": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "apk": "cd android && gradlew assembleRelease"
   },
   "dependencies": {
     "@react-native-firebase/app": "^20.3.0",
