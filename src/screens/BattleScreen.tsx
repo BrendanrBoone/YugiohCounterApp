@@ -112,11 +112,10 @@ export default function BattleScreen(props: IBattleScreenProps) {
                 transparent={true}
                 visible={winDow_visibility}
                 onRequestClose={handleGameEnd}>
-                <View style={ctx.player1.countLP == 0 ? styles.win_dow : styles.win_dow_flipped}>
+                <View style={ctx.player1.countLP == 0 ? styles.win_dow_flipped : styles.win_dow}>
                     <VideoPlayer
                         onEnd={handleGameEnd}
-                        source_location={ctx.player1.countLP == 0 ? random_ending[0] : random_ending[1]}
-                        flipped={ctx.player1.countLP == 0 ? true : false} />
+                        source_location={ctx.player1.countLP == 0 ? random_ending[1] : random_ending[0]} />
                     <View style={{flexDirection: "row", justifyContent: "center"}}>
                         <Text style={{fontSize: 50}}>
                             YOU WIN

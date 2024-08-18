@@ -10,7 +10,6 @@ import Video from 'react-native-video';
 interface VideoPlayerProps {
   onEnd: () => void;
   source_location: NodeRequire;
-  flipped: boolean;
 }
 
 /**
